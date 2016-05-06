@@ -1,0 +1,191 @@
+// CS 2A Assignment 5
+// Madhav Agrawal
+
+
+#include <iostream>
+#include <string>
+#include <cmath>
+
+#define KEY_CHARACTER 1
+#define MINIMUM_TARGET_STRING 4
+using namespace std;
+
+// initialize functions
+char getKeyLetter();
+string getString(), maskLetter(), removeLetter();
+int countKey();
+
+char getKeyLetter()
+{
+   char inputKey = ' ';
+   string key;
+   while (true)
+   {
+      cout << "Please enter a SINGLE letter to act as key: ";
+      getline(cin, key);
+      if (key.length() != KEY_CHARACTER)
+      {
+         continue;
+      }
+      else
+      {
+         inputKey = key[0];
+         return inputKey;
+      }
+   }
+   return inputKey;
+}
+
+string getString()
+{
+   string prompt = "Please enter a phrase or sentence >= 4 letters: ";
+   string inputString = " ";
+   while (inputString.length() < MINIMUM_TARGET_STRING)
+   {
+      cout << prompt << endl;
+      getline(cin, inputString);
+   }
+   return inputString;
+}
+
+string maskLetter (string theString, char keyLetter)
+{
+   string newString = "";
+   for (int i = 0; i < theString.length(); i++)
+   {
+      if (keyLetter == theString[i])
+      {
+         newString += "-";
+      }
+      else
+      {
+         newString += theString[i];
+      }
+   }
+   return newString;
+}
+
+string removeLetter (string theString, char keyLetter)
+{
+   string newString = "";
+   for (int i = 0; i < theString.length(); i++)
+   {
+      if (keyLetter == theString[i])
+      {
+         newString += "";
+      }
+      else
+      {
+         newString += theString[i];
+      }
+   }
+   return newString;
+}
+
+int countKey (string theString, char keyLetter)
+{
+   int numKey = 0;
+   for (int i = 0; i < theString.length(); i++)
+   {
+      if (keyLetter == theString[i])
+         numKey++;
+   }
+   return numKey;
+}
+
+int main ()
+{
+   const string INDENT = " ";
+   char userLetter = getKeyLetter();
+   string userString = getString();
+   string masked = maskLetter (userString, userLetter);
+   string removed = removeLetter(userString, userLetter);
+   int letterCount = countKey(userString, userLetter);
+   
+   //results
+   cout << "\nString with '" << userLetter << "' masked: \n";
+   cout << INDENT << masked << endl;
+   cout << "\n# as: " << letterCount << endl;
+   cout << "\nString with '" << userLetter << "' removed: \n";
+   cout << INDENT << removed << endl;
+   
+   return 0;
+   
+}
+
+
+/* ----------------- run 1 -----------------
+ 
+ Please enter a SINGLE letter to act as key: a
+ Please enter a phrase or sentence >= 4 letters:
+ apple
+ 
+ String with 'a' masked:
+ -pple
+ 
+ # as: 1
+ 
+ String with 'a' removed:
+ 
+ pple
+ Program ended with exit code: 0
+ 
+ -----------------------------------------------*/
+
+/* ----------------- run 2 -----------------
+ 
+ Please enter a SINGLE letter to act as key: b
+ Please enter a phrase or sentence >= 4 letters:
+ boat by the bus
+ 
+ String with 'b' masked:
+ -oat -y the -us
+ 
+ # as: 3
+ 
+ String with 'b' removed:
+ oat y the us
+ Program ended with exit code: 0
+ 
+ -----------------------------------------------*/
+
+/* ----------------- run 3 -----------------
+ 
+ Please enter a SINGLE letter to act as key: c
+ Please enter a phrase or sentence >= 4 letters:
+ category cats copying
+ 
+ String with 'c' masked:
+ -ategory -ats -opying
+ 
+ # as: 3
+ 
+ String with 'c' removed:
+ ategory ats opying
+ Program ended with exit code: 0
+
+ -----------------------------------------------*/
+
+/* ----------------- run 4 -----------------
+ 
+ Please enter a SINGLE letter to act as key: ok
+ Please enter a SINGLE letter to act as key: k
+ Please enter a phrase or sentence >= 4 letters:
+ ok
+ Please enter a phrase or sentence >= 4 letters:
+ kite kracken
+ 
+ String with 'k' masked:
+ -ite -rac-en
+ 
+ # as: 3
+ 
+ String with 'k' removed:
+ ite racen
+ Program ended with exit code: 0
+ 
+ -----------------------------------------------*/
+
+
+
+
